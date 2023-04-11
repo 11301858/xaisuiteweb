@@ -11,11 +11,35 @@
     <div data-datacamp-exercise data-lang="python" data-lang-version="3.6" data-packages="XAISuite" data-height="auto">
       <code data-type="pre-exercise-code"></code>
       <code data-type="sample-code">
-        import pandas as pd
-        from sklearn.datasets import*
+        import numpy as np
+        from sklearn.datasets import make_classification
+        from tensorflow import keras
+        from xaisuite import*
 
-        df = pd.DataFrame(data = load_diabetes().data)
-        df.head()
+        def get_model(hidden_layer_dim, meta):
+            # note that meta is a special argument that will be
+            # handed a dict containing input metadata
+            n_features_in_ = meta["n_features_in_"]
+            X_shape_ = meta["X_shape_"]
+            n_classes_ = meta["n_classes_"]
+
+            model = keras.models.Sequential()
+            model.add(keras.layers.Dense(n_features_in_, input_shape=X_shape_[1:]))
+            model.add(keras.layers.Activation("relu"))
+            model.add(keras.layers.Dense(hidden_layer_dim))
+            model.add(keras.layers.Activation("relu"))
+            model.add(keras.layers.Dense(n_classes_))
+            model.add(keras.layers.Activation("softmax"))
+            return model
+
+
+        train_and_explainModel("KerasClassifier"
+                              , generate_data("classification", "target", n_samples = 1000, n_features = 20, n_informative=10, random_state=0)
+                              , build_fn=get_model
+                              , loss="sparse_categorical_crossentropy"
+                              , hidden_layer_dim=100
+                              , epochs = 51
+                              )
       </code>
       <code data-type="solution"></code>
       <code data-type="sct"></code>
