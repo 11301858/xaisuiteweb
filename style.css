@@ -93,7 +93,6 @@ nav {
   height: 100%;
   top: 0;
   left: 0;
-  background: var(--blue);
   color: var(--blue);
   width: 300px;
   z-index: 1;
