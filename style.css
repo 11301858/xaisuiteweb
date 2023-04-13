@@ -93,7 +93,7 @@ nav {
   height: 100%;
   top: 0;
   left: 0;
-  color: var(--blue);
+  color: var(--white);
   width: 300px;
   z-index: 1;
   padding-top: 80px;
@@ -115,7 +115,7 @@ nav a {
 }
 nav a:hover {
   text-decoration: none;
-  color: var(--white);
+  color: var(--blue);
 }
 nav[data-state=open] {
   transform: translateX(0%);
